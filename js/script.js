@@ -1,7 +1,9 @@
 // Tunggu sampai DOM sepenuhnya dimuat
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Animasi Fade-In saat di-scroll (Intersection Observer)
+    // ==========================================
+    // 1. Animasi Fade-In saat di-scroll
+    // ==========================================
     const fadeElements = document.querySelectorAll('.fade-in');
 
     const observerOptions = {
@@ -22,19 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeElements.forEach(el => observer.observe(el));
 
 
+    // ==========================================
     // 2. Smooth Scroll untuk Link Navigasi
-    const navLinks = document.querySelectorAll('a[href^="#"]');
+    // ==========================================
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
 
-    navLinks.forEach(link => {
+    anchorLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
             const targetId = this.getAttribute('href');
-            if(targetId === '#') return;
+            if (targetId === '#') return; // Abaikan jika hanya '#'
 
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
+                e.preventDefault();
                 const offsetTop = targetElement.offsetTop - 80; // Offset untuk navbar fixed
                 
                 window.scrollTo({
@@ -45,15 +48,79 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Efek Navbar saat di-scroll (Opsional: Menambah shadow)
+
+    // ==========================================
+    // 3. Efek Navbar saat di-scroll (Shadow)
+    // ==========================================
     const navbar = document.querySelector('.navbar');
     
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.03)';
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.03)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    }
+
+
+    // ==========================================
+    // 4. Dynamic Back Button (Halaman Project)
+    // ==========================================
+    const backLink = document.querySelector('.back-link');
+
+    if (backLink) {
+        const referrer = document.referrer;
+        const currentPath = window.location.pathname;
+        
+        // Cek apakah user datang dari halaman project lain
+        const isFromProject = referrer.includes('/projects/') && !referrer.includes(currentPath);
+        
+        if (isFromProject) {
+            // Jika datang dari project lain, kembali ke project tersebut
+            backLink.href = referrer;
         } else {
-            navbar.style.boxShadow = 'none';
+            // Default: kembali ke section projects di index.html
+            backLink.href = '../index.html#projects';
         }
-    });
+    }
+
+
+    // ==========================================
+    // 5. Hamburger Menu untuk Mobile
+    // ==========================================
+    const hamburger = document.querySelector('.hamburger');
+    const navLinksContainer = document.querySelector('.nav-links');
+    const navOverlay = document.querySelector('.nav-overlay');
+    const navItems = document.querySelectorAll('.nav-links a');
+
+    if (hamburger && navLinksContainer) {
+        const toggleMenu = () => {
+            hamburger.classList.toggle('active');
+            navLinksContainer.classList.toggle('active');
+            if (navOverlay) navOverlay.classList.toggle('active');
+            
+            // Mencegah scroll pada body saat menu terbuka
+            document.body.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : '';
+        };
+
+        // Buka/tutup menu saat hamburger diklik
+        hamburger.addEventListener('click', toggleMenu);
+
+        // Tutup menu saat overlay gelap diklik
+        if (navOverlay) {
+            navOverlay.addEventListener('click', toggleMenu);
+        }
+
+        // Tutup menu otomatis saat salah satu link navigasi diklik
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (navLinksContainer.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+    }
 
 });
