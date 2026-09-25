@@ -1,0 +1,446 @@
+/* === RESET & VARIABEL === */
+:root {
+    --bg-color: #F9F9F9;
+    --text-color: #1A1A1A;
+    --muted-color: #7A7A7A;
+    --accent-color: #2C2C2C;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* === NAVIGASI === */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem 5%;
+    background: rgba(249, 249, 249, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--muted-color);
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: var(--text-color);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--text-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* === HERO SECTION (Updated dengan Foto) === */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 5% 5%;
+}
+
+.hero-content {
+    max-width: 1100px;
+    width: 100%;
+}
+
+/* Layout: Foto + Teks berdampingan */
+.hero-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+}
+
+/* Wrapper Foto dengan efek kolase */
+.profile-photo-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-photo {
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+    /* Efek kolase: garis-garis di sekeliling foto */
+    border: 2px solid var(--text-color);
+    box-shadow: 
+        12px 12px 0px var(--text-color),
+        -6px -6px 0px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Garis dekoratif kolase di sekitar foto */
+.profile-photo-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    border: 1px dashed var(--muted-color);
+    z-index: 1;
+}
+
+.profile-photo-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: -15px;
+    bottom: -15px;
+    border: 1px solid rgba(0,0,0,0.15);
+    z-index: 0;
+}
+
+/* Teks Hero */
+.hero-text {
+    text-align: left;
+    max-width: 500px;
+}
+
+.hero-text .subtitle {
+    font-size: 1rem;
+    color: var(--muted-color);
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.hero-text .title {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.hero-text .description {
+    font-size: 1.05rem;
+    color: var(--muted-color);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    line-height: 1.7;
+}
+
+.hero-text .btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border: 1px solid var(--text-color);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.hero-text .btn:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+/* Responsive: Stack vertikal di mobile */
+@media (max-width: 768px) {
+    .hero-layout {
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .profile-photo {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+/* === SECTIONS UMUM === */
+.section {
+    padding: 8rem 5%;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 3rem;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+/* === ABOUT === */
+.about-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--muted-color);
+    font-size: 1.05rem;
+    font-weight: 300;
+}
+
+.about-content p + p {
+    margin-top: 1.5rem;
+}
+
+/* === QUOTES === */
+.quotes {
+    margin-top: 4rem;
+    padding: 3rem 2rem;
+    position: relative;
+    text-align: center;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.quote-mark {
+    font-family: var(--font-serif);
+    font-size: 6rem;
+    color: rgba(0,0,0,0.1);
+    line-height: 1;
+    display: block;
+    margin-bottom: -2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.quote-text {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-color);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.quote-author {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--muted-color);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Responsive untuk mobile */
+@media (max-width: 768px) {
+    .quotes {
+        margin-top: 3rem;
+        padding: 2rem 1rem;
+    }
+    
+    .quote-mark {
+        font-size: 4rem;
+        margin-bottom: -1.5rem;
+    }
+}
+
+/* === PROJECTS === */
+.project-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.project-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    padding-left: 1.5rem;
+}
+
+.project-info h3 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+}
+
+.project-info p {
+    font-size: 0.9rem;
+    color: var(--muted-color);
+}
+
+.arrow {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .arrow {
+    transform: translateX(5px);
+}
+
+/* === CONTACT === */
+.contact {
+    text-align: center;
+}
+
+.contact-text {
+    color: var(--muted-color);
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.email-link {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-style: italic;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.email-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--text-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+}
+
+.email-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.socials {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.socials a {
+    font-size: 0.9rem;
+    color: var(--muted-color);
+    transition: color 0.3s ease;
+}
+
+.socials a:hover {
+    color: var(--text-color);
+}
+
+/* === FOOTER === */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--muted-color);
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* === ANIMASI (Fade In) === */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 1.5rem;
+    }
+    
+    .nav-links a {
+        font-size: 0.8rem;
+    }
+
+    .section {
+        padding: 5rem 5%;
+    }
+
+    .project-card:hover {
+        padding-left: 0;
+    }
+}
